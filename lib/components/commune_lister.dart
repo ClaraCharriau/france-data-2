@@ -1,57 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_examen1/components/config.dart';
-import 'package:flutter_examen1/models/departement.model.dart';
-import 'package:flutter_examen1/models/departement_list.model.dart';
-import 'package:flutter_examen1/pages/commune_page.dart';
-import 'package:flutter_examen1/services/departements.service.dart';
+import 'package:flutter_examen1/models/commune.model.dart';
+import 'package:flutter_examen1/models/commune_list.model.dart';
+import 'package:flutter_examen1/services/communes.service.dart';
 
-class DepartementLister extends StatefulWidget {
-  const DepartementLister(
-      {super.key, required this.regionCode, required this.region, required this.config});
+class CommuneLister extends StatefulWidget {
+  const CommuneLister(
+      {super.key, required this.departement, required this.departementCode});
 
-  final String regionCode;
-  final String region;
-  final Config config;
+  final String departement;
+  final String departementCode;
 
   @override
-  State<DepartementLister> createState() => _DepartementListerState();
+  State<CommuneLister> createState() => _CommuneListerState();
 }
 
-class _DepartementListerState extends State<DepartementLister> {
-  late Future<DepartementList?> departements;
+class _CommuneListerState extends State<CommuneLister> {
+  late Future<CommuneList?> communes;
 
-  late String region;
-  late String regionCode;
+  late String departement;
+  late String departementCode;
 
   void loadDepartements() {
     setState(() {
-      departements = DepartementService.getDepartements(widget.regionCode);
+      communes = CommuneService.getCommunes(widget.departementCode);
     });
-  }
-
-  void redirectToCommunePage(String departement, String departementCode) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                CommunePage(config: widget.config, departement: departement, departementCode: departementCode)));
   }
 
   @override
   void initState() {
     super.initState();
-    region = widget.region;
-    regionCode = widget.regionCode;
+    departement = widget.departement;
+    departementCode = widget.departementCode;
     loadDepartements();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: departements,
+        future: communes,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<Departement> departements = snapshot.data!.departements;
+            List<Commune> communes = snapshot.data!.communes;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +48,7 @@ class _DepartementListerState extends State<DepartementLister> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "La région $region ($regionCode) compte ${departements.length} départements.\nCliquez sur l'un des département pour en savoir plus...",
+                    "Le département $departement ($departementCode) compte ${communes.length} communes.\nCliquez sur l'une des communes pour en savoir plus...",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -68,26 +57,26 @@ class _DepartementListerState extends State<DepartementLister> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: snapshot.data!.departements.length,
+                    itemCount: snapshot.data!.communes.length,
                     itemBuilder: (context, index) {
-                      Departement departement = departements[index];
+                      Commune commune = communes[index];
                       return Column(
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
-                              // You can customize Card properties here
                               child: ListTile(
-                                title: Text(departement.nom),
+                                title: Text(commune.nom),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        "Code du département: ${departement.code}"),
+                                        "Population: ${commune.population},\nCde.Post.: ${commune.codesPostaux}"),
                                   ],
                                 ),
+                                // You can handle onTap here
                                 onTap: () {
-                                  redirectToCommunePage(departement.nom, departement.code);
+                                  // Add your onTap logic
                                 },
                               ),
                             ),

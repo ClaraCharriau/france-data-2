@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_examen1/components/commune_lister.dart';
 import 'package:flutter_examen1/components/config.dart';
-import 'package:flutter_examen1/components/departement_lister.dart';
 import 'package:flutter_examen1/components/sliding_menu.dart';
 
-class DepartementPage extends StatelessWidget {
-  const DepartementPage(
-      {super.key, required this.config, required this.region});
+class CommunePage extends StatelessWidget {
+  const CommunePage
+(
+      {super.key, required this.config, required this.departement, required this.departementCode});
 
   final Config config;
-  final String region;
+  final String departement;
+  final String departementCode;
 
   @override
   Widget build(BuildContext context) {
-    final String regionCode = config.get('regions.$region.code');
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -20,7 +21,7 @@ class DepartementPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
-          "Région: $region",
+          "Département: $departement",
           style: const TextStyle(
             color: Colors.white,
           ),
@@ -28,7 +29,7 @@ class DepartementPage extends StatelessWidget {
       ),
       drawer: SlideMenu(config: config, currentPage: ""),
       body: 
-        DepartementLister(config: config, regionCode: regionCode, region: region),
+        CommuneLister(departementCode: departementCode, departement: departement),
     );
   }
 }
