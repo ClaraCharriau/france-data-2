@@ -34,6 +34,39 @@ class _CommuneListerState extends State<CommuneLister> {
     loadDepartements();
   }
 
+  Future<void> _dialogBuilder(BuildContext context, Commune commune) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+                                    title: const Text('Détails de la commune'),
+                                    content: Text(
+                                      'Nom: ${commune.nom}\n'
+                                      'Code: ${commune.code}\n'
+                                      'CodeDep: ${commune.codeDepartement}\n'
+                                      'Siren: ${commune.siren}\n'
+                                      'Code Epci: ${commune.codeEpci}\n'
+                                      'Population: ${commune.population}\n'
+                                      'Code Postaux: ${commune.codesPostaux}\n',
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                        ),
+                                        child: const Text('Fermer'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -74,10 +107,7 @@ class _CommuneListerState extends State<CommuneLister> {
                                         "Population: ${commune.population},\nCde.Post.: ${commune.codesPostaux}"),
                                   ],
                                 ),
-                                // You can handle onTap here
-                                onTap: () {
-                                  // Add your onTap logic
-                                },
+                                onTap: () => _dialogBuilder(context, commune)
                               ),
                             ),
                           ),
