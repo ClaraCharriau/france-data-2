@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_examen1/components/config.dart';
+import 'package:flutter_examen1/pages/departements_page.dart';
 import 'package:yaml/yaml.dart';
 
 class SearchBarApp extends StatefulWidget {
@@ -17,6 +18,7 @@ class _SearchBarAppState extends State<SearchBarApp> {
   List<String> searchresults = [];
   bool sbHasFocus = false;
   final TextEditingController _searchController = TextEditingController();
+
 
   var searchBarHasFocus = FocusNode();
 
@@ -50,6 +52,14 @@ class _SearchBarAppState extends State<SearchBarApp> {
     _searchController.text = value;
     searchBarHasFocus.requestFocus();
     search(value);
+  }
+
+  void redirectToDepartementsList(query) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                DepartementPage(config: widget.config, region: query)));
   }
 
   void setRegions(YamlMap regions) {
@@ -86,7 +96,7 @@ class _SearchBarAppState extends State<SearchBarApp> {
                     EdgeInsets.symmetric(horizontal: 16.0),
                   ),
                   onSubmitted: (value) {
-                    print(value);
+                    redirectToDepartementsList(value);
                   },
                   onChanged: (value) {
                     search(value);
