@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_examen1/components/config.dart';
 import 'package:flutter_examen1/models/departement.model.dart';
 import 'package:flutter_examen1/models/departement_list.model.dart';
+import 'package:flutter_examen1/pages/404_page.dart';
 import 'package:flutter_examen1/pages/commune_page.dart';
 import 'package:flutter_examen1/services/geoGouv.service.dart';
 
@@ -113,7 +114,7 @@ class _DepartementListerState extends State<DepartementLister> {
               ],
             );
           } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            return const Page404();
           }
           // Loading spinner
           return const CircularProgressIndicator();

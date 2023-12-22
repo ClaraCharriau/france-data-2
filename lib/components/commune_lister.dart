@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_examen1/models/commune.model.dart';
 import 'package:flutter_examen1/models/commune_list.model.dart';
+import 'package:flutter_examen1/pages/404_page.dart';
 import 'package:flutter_examen1/services/dialog.service.dart';
 import 'package:flutter_examen1/services/geoGouv.service.dart';
 
@@ -91,7 +92,7 @@ class _CommuneListerState extends State<CommuneLister> {
               ],
             );
           } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            return const Page404();
           }
           // Loading spinner
           return const CircularProgressIndicator();

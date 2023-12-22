@@ -5,7 +5,7 @@ import 'package:flutter_examen1/models/departement_list.model.dart';
 
 import 'package:http/http.dart' as http;
 
-String geoGouvPath = "https://geo.api.gouv.fr/regions";
+String geoGouvPath = "https://geo.api.gouv.fr";
 
 class GeoGouvService {
   static Future<DepartementList?> getDepartements(String regionCode) async {
