@@ -19,7 +19,6 @@ class _SearchBarAppState extends State<SearchBarApp> {
   bool sbHasFocus = false;
   final TextEditingController _searchController = TextEditingController();
 
-
   var searchBarHasFocus = FocusNode();
 
   @override
@@ -65,7 +64,6 @@ class _SearchBarAppState extends State<SearchBarApp> {
   void setRegions(YamlMap regions) {
     if (searchresults.isEmpty) {
       for (var region in regions.values) {
-        // print(region["nom"]);
         setState(() {
           searchresults.add(region["nom"]);
         });
@@ -100,7 +98,6 @@ class _SearchBarAppState extends State<SearchBarApp> {
                   },
                   onChanged: (value) {
                     search(value);
-                    // print('search has changed');
                   },
                   leading: const Icon(
                     Icons.search,
@@ -113,93 +110,94 @@ class _SearchBarAppState extends State<SearchBarApp> {
           ],
         ),
         Visibility(
-            visible: sbHasFocus,
-            maintainSize: false,
-            child: Flexible(
-              child: (filteredItems.isNotEmpty || _query.isNotEmpty)
-                  ? filteredItems.isEmpty
-                      ? Container(
-                          width: 400,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20.0),
-                              bottomRight: Radius.circular(20.0),
-                            ),
-                            color: Color.fromARGB(37, 4, 160, 232),
+          visible: sbHasFocus,
+          maintainSize: false,
+          child: Flexible(
+            child: (filteredItems.isNotEmpty || _query.isNotEmpty)
+                ? filteredItems.isEmpty
+                    ? Container(
+                        width: 400,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20.0),
+                            bottomRight: Radius.circular(20.0),
                           ),
-                          child: const Center(
-                            child: Text(
-                              'No Results Found',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ))
-                      : Container(
-                          width: 400,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20.0),
-                              bottomRight: Radius.circular(20.0),
-                            ),
-                            color: Color.fromARGB(37, 4, 160, 232),
-                          ),
-                          child: ListView.builder(
-                            itemCount: filteredItems.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTapDown: (detail) {
-                                  updateSearchQuery(filteredItems[index]);
-                                },
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    border: Border(
-                                      // Bordure supérieure
-                                      bottom: BorderSide(
-                                          width: 1.0,
-                                          color: Colors
-                                              .white), // Bordure inférieure
-                                    ),
-                                  ),
-                                  child: ListTile(
-                                    title: Text(filteredItems[index]),
-                                  ),
-                                ),
-                              );
-                            },
-                          ))
-                  : Container(
-                      width: 400,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20.0),
-                          bottomRight: Radius.circular(20.0),
+                          color: Color.fromARGB(37, 4, 160, 232),
                         ),
-                        color: Color.fromARGB(37, 4, 160, 232),
-                      ),
-                      child: ListView.builder(
-                        itemCount: searchresults.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTapDown: (detail) {
-                              updateSearchQuery(searchresults[index]);
-                            },
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  // Bordure supérieure
-                                  bottom: BorderSide(
-                                      width: 1.0,
-                                      color:
-                                          Colors.white), // Bordure inférieure
+                        child: const Center(
+                          child: Text(
+                            'No Results Found',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ))
+                    : Container(
+                        width: 400,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20.0),
+                            bottomRight: Radius.circular(20.0),
+                          ),
+                          color: Color.fromARGB(37, 4, 160, 232),
+                        ),
+                        child: ListView.builder(
+                          itemCount: filteredItems.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTapDown: (detail) {
+                                updateSearchQuery(filteredItems[index]);
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    // Bordure supérieure
+                                    bottom: BorderSide(
+                                        width: 1.0,
+                                        color:
+                                            Colors.white), // Bordure inférieure
+                                  ),
+                                ),
+                                child: ListTile(
+                                  title: Text(filteredItems[index]),
                                 ),
                               ),
-                              child: ListTile(
-                                title: Text(searchresults[index]),
+                            );
+                          },
+                        ))
+                : Container(
+                    width: 400,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0),
+                      ),
+                      color: Color.fromARGB(37, 4, 160, 232),
+                    ),
+                    child: ListView.builder(
+                      itemCount: searchresults.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTapDown: (detail) {
+                            updateSearchQuery(searchresults[index]);
+                          },
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                // Bordure supérieure
+                                bottom: BorderSide(
+                                    width: 1.0,
+                                    color: Colors.white), // Bordure inférieure
                               ),
                             ),
-                          );
-                        },
-                      )),
-            ))
+                            child: ListTile(
+                              title: Text(searchresults[index]),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+          ),
+        ),
       ],
     );
   }

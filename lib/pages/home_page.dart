@@ -22,11 +22,12 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      drawer: SlideMenu(config: config, currentPage: config.get('page-name.home'),),
-      body: ListView( // agencement des sections du body en colonne
-        children: <Widget>[ // sections du body
-          //... ici empilez les differentes sections du body.
-          //... séparez les avec du padding
+      drawer: SlideMenu(
+        config: config,
+        currentPage: config.get('page-name.home'),
+      ),
+      body: ListView(
+        children: <Widget>[
           VideoHero(config: config),
           Row(
             children: <Widget>[
@@ -45,8 +46,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
-          ), // component affichant un Hero avec un background Video
-            
+          ),
           Row(
             children: <Widget>[
               Expanded(
@@ -62,22 +62,22 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
-          ), 
-
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            
             children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0,50,0,50),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
                   child: ElevatedButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RegionPage(config: config,))
-                      );
-                    }, 
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegionPage(
+                                    config: config,
+                                  )));
+                    },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,11 +94,9 @@ class HomePage extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
-                ),
+                  )),
             ],
           ),
-
           Row(
             children: <Widget>[
               Expanded(
@@ -107,16 +105,14 @@ class HomePage extends StatelessWidget {
                   child: const Text(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quam arcu, suscipit eu accumsan quis, posuere in massa. Phasellus tempor ante nec mi aliquam dignissim. Maecenas malesuada cursus ultrices. Cras in orci non lacus aliquet porttitor in id augue. Mauris consequat convallis magna, id consequat augue pulvinar vel. ",
                     style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 10,
-                      color: Colors.grey
-                    ),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 10,
+                        color: Colors.grey),
                   ),
                 ),
               ),
             ],
-          ), 
-
+          ),
         ],
       ),
     );

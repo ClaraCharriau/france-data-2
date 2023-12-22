@@ -3,11 +3,14 @@ import 'package:flutter_examen1/components/config.dart';
 import 'package:flutter_examen1/models/departement.model.dart';
 import 'package:flutter_examen1/models/departement_list.model.dart';
 import 'package:flutter_examen1/pages/commune_page.dart';
-import 'package:flutter_examen1/services/departements.service.dart';
+import 'package:flutter_examen1/services/geoGouv.service.dart';
 
 class DepartementLister extends StatefulWidget {
   const DepartementLister(
-      {super.key, required this.regionCode, required this.region, required this.config});
+      {super.key,
+      required this.regionCode,
+      required this.region,
+      required this.config});
 
   final String regionCode;
   final String region;
@@ -23,18 +26,20 @@ class _DepartementListerState extends State<DepartementLister> {
   late String region;
   late String regionCode;
 
-  void loadDepartements() {
+  void _loadDepartements() {
     setState(() {
-      departements = DepartementService.getDepartements(widget.regionCode);
+      departements = GeoGouvService.getDepartements(widget.regionCode);
     });
   }
 
-  void redirectToCommunePage(String departement, String departementCode) {
+  void _redirectToCommunePage(String departement, String departementCode) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                CommunePage(config: widget.config, departement: departement, departementCode: departementCode)));
+            builder: (context) => CommunePage(
+                config: widget.config,
+                departement: departement,
+                departementCode: departementCode)));
   }
 
   @override
@@ -42,7 +47,7 @@ class _DepartementListerState extends State<DepartementLister> {
     super.initState();
     region = widget.region;
     regionCode = widget.regionCode;
-    loadDepartements();
+    _loadDepartements();
   }
 
   @override
@@ -76,19 +81,27 @@ class _DepartementListerState extends State<DepartementLister> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
-                              // You can customize Card properties here
-                              child: ListTile(
-                                title: Text(departement.nom),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "Code du département: ${departement.code}"),
-                                  ],
-                                ),
-                                onTap: () {
-                                  redirectToCommunePage(departement.nom, departement.code);
+                              child: InkWell(
+                                // InkWell, zone cliquable comme un bouton
+                                onTapDown: (TapDownDetails details) {
+                                  _redirectToCommunePage(
+                                      departement.nom, departement.code);
                                 },
+                                child: ListTile(
+                                  title: Text(departement.nom),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          "Code du département: ${departement.code}"),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    _redirectToCommunePage(
+                                        departement.nom, departement.code);
+                                  },
+                                ),
                               ),
                             ),
                           ),

@@ -25,7 +25,6 @@ class VideoAppState extends State<VideoApp> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           // exécute ceci seulement une fois le player chargé et prêt:
           _controller.play();
-          // print(_controller.value);
         });
       
       });

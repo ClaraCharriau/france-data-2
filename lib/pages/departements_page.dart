@@ -27,8 +27,7 @@ class DepartementPage extends StatelessWidget {
         ),
       ),
       drawer: SlideMenu(config: config, currentPage: ""),
-      body: 
-        DepartementLister(config: config, regionCode: regionCode, region: region),
+      body: DepartementLister(config: config, regionCode: regionCode, region: region),
     );
   }
 }

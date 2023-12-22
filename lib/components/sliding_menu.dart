@@ -10,7 +10,6 @@ class SlideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(currentPage);
     return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

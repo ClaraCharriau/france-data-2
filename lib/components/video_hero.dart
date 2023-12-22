@@ -9,7 +9,6 @@ class VideoHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(config.get('hero-main-caption.title'));
     return  Center(
       child: Stack(
         children: [
