@@ -3,7 +3,7 @@ class Commune {
     String code;
     String codeDepartement;
     String siren;
-    String codeEpci;
+    String? codeEpci;
     String codeRegion;
     List<String> codesPostaux;
     int population;
